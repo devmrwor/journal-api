@@ -6,9 +6,9 @@ end
 
 100.times do
   post = Post.create(
-    title: Faker::Lorem.sentence(word_count: 3),
-    content: Faker::Lorem.paragraph(sentence_count: 2),
-    label: Faker::Lorem.word,
+    title: Faker::FunnyName.name,
+    content: Faker::Quote.famous_last_words,
+    label: ["idea", "fun", "work", "life"].sample,
   )
   post.update_attribute(:created_at, Faker::Date.between(from: 365.days.ago, to: Date.today))
   p "Created post - title: #{post.title} | content: #{post.content.truncate(20)} | label: #{post.label} | created_at: #{post.created_at}"
