@@ -19,7 +19,7 @@ class Api::V1::PostsController < ApplicationController
   def show_by_date
     date = Date.parse(params[:date])
     date_range = date.beginning_of_day..date.end_of_day
-    @post = Post.where(created_at: date_range).first
+    @post = Post.find_by(created_at: date_range)
 
     render json: @post
   end
