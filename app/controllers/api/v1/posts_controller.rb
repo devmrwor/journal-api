@@ -10,8 +10,20 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    @post = Post.find(params[:id])
+
     render json: @post
   end
+
+  # GET /posts?date=2021-01-01
+  def show_by_date
+    date = Date.parse(params[:date])
+    date_range = date.beginning_of_day..date.end_of_day
+    @post = Post.where(created_at: date_range).first
+
+    render json: @post
+  end
+
 
   # POST /posts
   def create
