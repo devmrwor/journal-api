@@ -6,7 +6,7 @@ end
 
 day_count = 0
 
-100.times do
+365.times do
   post = Post.create(
     title: Faker::FunnyName.name,
     content: Faker::Quote.famous_last_words,
