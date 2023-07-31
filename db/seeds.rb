@@ -4,7 +4,7 @@ require 'faker'
   ActiveRecord::Base.connection.execute("TRUNCATE #{table.table_name} RESTART IDENTITY CASCADE")
 end
 
-day_count = 0
+day_count = -10
 
 365.times do
   post = Post.create(
