@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :show, :create, :update, :destroy] do
         collection do
           get 'date=:date', action: :show_by_date, as: :show_by_date
+          get 'label=:label', action: :index_by_label, as: :index_by_label
         end
       end
     end

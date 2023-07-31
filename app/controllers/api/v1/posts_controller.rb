@@ -8,6 +8,13 @@ class Api::V1::PostsController < ApplicationController
     render json: @posts
   end
 
+  # GET /posts?label=idea
+  def index_by_label
+    @posts = Post.where(label: params[:label])
+
+    render json: @posts
+  end
+
   # GET /posts/1
   def show
     @post = Post.find(params[:id])

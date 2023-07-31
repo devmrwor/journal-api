@@ -10,6 +10,15 @@ RSpec.describe "Api::V1::Posts", type: :request do
     end
   end
 
+  describe "GET /api/v1/posts?label=idea" do
+    it "returns all posts with the specified label" do
+      create_list(:post, 3, label: "idea")
+      get "/api/v1/posts?label=idea"
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body).size).to eq(3)
+    end
+  end
+
   describe "GET /api/v1/posts/:id" do
     it "returns a single post" do
       post = create(:post)
