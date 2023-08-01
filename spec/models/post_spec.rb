@@ -18,5 +18,16 @@ RSpec.describe Post, type: :model do
       expect(post).not_to be_valid
       expect(post.errors[:content]).to include("can't be blank")
     end
+
+    it "is not valid with an invalid label" do
+      post = build(:post, label: "invalid_label")
+      expect(post).not_to be_valid
+      expect(post.errors[:label]).to include("is not included in the list")
+    end
+
+    it "is valid with a valid label (idea)" do
+      post = build(:post, label: "idea")
+      expect(post).to be_valid
+    end
   end
 end

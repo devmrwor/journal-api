@@ -40,7 +40,7 @@ RSpec.describe "Api::V1::Posts", type: :request do
 
   describe "POST /api/v1/posts" do
     it "creates a new post" do
-      post_params = { post: { title: "New Post", content: "Lorem ipsum", label: "sample" } }
+      post_params = { post: { title: "New Post", content: "Lorem ipsum", label: "fun" } }
       post "/api/v1/posts", params: post_params
       expect(response).to have_http_status(:created)
       expect(JSON.parse(response.body)["title"]).to eq("New Post")
