@@ -17,25 +17,14 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-  # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def destroy
+    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+    if request.format.json?
+      render json: { message: 'Signed out successfully' }, status: :ok
+    else
+      redirect_to after_sign_out_path_for(resource_name)
+    end
+  end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
 end
