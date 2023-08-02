@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+  devise_scope :user do
+    post '/login', to: 'users/sessions#create'
+    delete '/logout', to: 'users/sessions#destroy'
+  end
   namespace :api do
     namespace :v1 do
       resources :posts, only: [:index, :show, :create, :update, :destroy] do

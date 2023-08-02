@@ -1,4 +1,5 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :check_jwt, only: %i[ create update destroy ]
   before_action :set_post, only: %i[ show update destroy ]
   before_action :set_cors_headers, except: :options
 
@@ -71,8 +72,30 @@ class Api::V1::PostsController < ApplicationController
 
     def set_cors_headers
       origin = Rails.env.production? ? 'https://journal-frontend-smoky.vercel.app' : 'http://localhost:4000'
+
+
+      response.headers['Access-Control-Allow-Origin'] = origin
       response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD'
       response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
       response.headers['Access-Control-Allow-Credentials'] = 'true'
+    end
+
+    def check_jwt
+      auth_header = request.headers['Authorization']
+      token = auth_header&.split(' ')&.last
+
+      if token
+        begin
+          decoded_token = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256')
+          payload = decoded_token.first
+          user_id = payload['user_id']
+
+          @current_user = User.find(user_id)
+        rescue JWT::DecodeError
+          render json: { error: 'Invalid token' }, status: :unauthorized
+        end
+      else
+        render json: { error: 'Token missing' }, status: :unauthorized
+      end
     end
 end

@@ -10,6 +10,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "rack-cors"
 gem 'faker'
+gem 'devise'
+gem 'devise-jwt'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -18,7 +21,6 @@ group :development, :test do
 end
 
 group :test do
-    gem 'factory_bot_rails'
-    gem 'faker'
-    gem 'simplecov', require: false
+  gem 'factory_bot_rails'
+  gem 'simplecov', require: false
 end
