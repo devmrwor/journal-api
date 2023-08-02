@@ -1,5 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   before_action :set_post, only: %i[ show update destroy ]
+  before_action :set_cors_headers, except: :options
 
   # GET /posts
   def index
@@ -66,5 +67,12 @@ class Api::V1::PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content, :label, :created_at)
+    end
+
+    def set_cors_headers
+      response.headers['Access-Control-Allow-Origin'] = 'https://journal-frontend-smoky.vercel.app'
+      response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD'
+      response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
+      response.headers['Access-Control-Allow-Credentials'] = 'true'
     end
 end
