@@ -70,7 +70,7 @@ class Api::V1::PostsController < ApplicationController
     end
 
     def set_cors_headers
-      response.headers['Access-Control-Allow-Origin'] = 'https://journal-frontend-smoky.vercel.app'
+      origin = Rails.env.production? ? 'https://journal-frontend-smoky.vercel.app' : 'http://localhost:4000'
       response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD'
       response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
       response.headers['Access-Control-Allow-Credentials'] = 'true'
