@@ -8,7 +8,10 @@ class Users::SessionsController < Devise::SessionsController
       if request.format.json?
         render json: {
           user: user,
-          token: JWT.encode({ user_id: user.id }, ENV['DEVISE_JWT_SECRET_KEY'], 'HS256')
+          token: JWT.encode({
+            user_id: user.id,
+            username: user.username,
+          }, ENV['DEVISE_JWT_SECRET_KEY'], 'HS256')
         } and return
       end
     end
