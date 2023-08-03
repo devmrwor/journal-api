@@ -4,9 +4,9 @@ require 'faker'
   ActiveRecord::Base.connection.execute("TRUNCATE #{table.table_name} RESTART IDENTITY CASCADE")
 end
 
-day_count = -10
+day_count = -365
 
-365.times do
+730.times do
   post = Post.create(
     title: Faker::FunnyName.name,
     content: Faker::Quote.famous_last_words,
