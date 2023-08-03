@@ -67,7 +67,7 @@ class Api::V1::PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :label, :created_at)
+      params.require(:post).permit(:title, :content, :label, :created_at, :updated_at)
     end
 
     def set_cors_headers
